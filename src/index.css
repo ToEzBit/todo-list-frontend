@@ -5,9 +5,33 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f3f4f6;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.max-w-xs {
+  max-width: 576px;
+}
+
+.bd-callout {
+  border-left-width: 0.25rem;
+}
+
+.bd-callout-warning {
+  border-left-color: #f0ad4e;
+}
+
+.bd-callout-success {
+  border-left-color: #28a745;
+}
+
+.bd-callout-info {
+  border-left-color: #5bc0de;
+}
+
+.bd-callout-primary {
+  border-left-color: #007bff;
+}
+
+.bd-callout-danger {
+  border-left-color: #d9534f;
 }
