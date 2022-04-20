@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from '../ui/Button';
 
 function TodoInput(props) {
-  const [todoInput, setTodoInput] = useState('');
+  const [todoInput, setTodoInput] = useState(props.title || '');
   const [todoError, setTodoError] = useState('');
 
   const handleClickCreateBtn = () => {
@@ -12,6 +12,15 @@ function TodoInput(props) {
       props.createTodo(todoInput);
       setTodoError('');
       setTodoInput('');
+    }
+  };
+
+  const handleClickUpdateBtn = () => {
+    if (!todoInput) {
+      setTodoError('Title is required.');
+    } else {
+      props.updateTodo({ title: todoInput }, props.id);
+      props.closeEditing();
     }
   };
 
@@ -25,10 +34,25 @@ function TodoInput(props) {
           value={todoInput}
           onChange={event => setTodoInput(event.target.value)}
         />
-        <Button color="success" onClick={handleClickCreateBtn}>
-          <i className="fa-solid fa-plus" />
-        </Button>
-        <Button color="outline-secondary" onClick={() => setTodoInput('')}>
+        {props.id ? (
+          <Button color="primary" onClick={handleClickUpdateBtn}>
+            <i className="fa-solid fa-check" />
+          </Button>
+        ) : (
+          <Button color="success" onClick={handleClickCreateBtn}>
+            <i className="fa-solid fa-plus" />
+          </Button>
+        )}
+        <Button
+          color="outline-secondary"
+          onClick={() => {
+            if (props.id) {
+              props.closeEditing();
+            } else {
+              setTodoInput('');
+            }
+          }}
+        >
           <i className="fa-solid fa-xmark" />
         </Button>
       </div>
