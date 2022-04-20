@@ -1,22 +1,38 @@
+import { useState } from 'react';
 import Button from '../ui/Button';
 
-function TodoInput() {
+function TodoInput(props) {
+  const [todoInput, setTodoInput] = useState('');
+  const [todoError, setTodoError] = useState('');
+
+  const handleClickCreateBtn = () => {
+    if (!todoInput) {
+      setTodoError('Title is required.');
+    } else {
+      props.createTodo(todoInput);
+      setTodoError('');
+      setTodoInput('');
+    }
+  };
+
   return (
     <>
       <div className="input-group shadow">
         <input
           type="text"
-          className="form-control"
+          className={`form-control ${todoError ? 'is-invalid' : ''}`}
           placeholder="Enter new todo"
+          value={todoInput}
+          onChange={event => setTodoInput(event.target.value)}
         />
-        <Button color="success">
+        <Button color="success" onClick={handleClickCreateBtn}>
           <i className="fa-solid fa-plus" />
         </Button>
-        <Button color="outline-secondary">
+        <Button color="outline-secondary" onClick={() => setTodoInput('')}>
           <i className="fa-solid fa-xmark" />
         </Button>
       </div>
-      {/* <small className="text-danger">Title is required.</small> */}
+      {todoError && <small className="text-danger">{todoError}</small>}
     </>
   );
 }
