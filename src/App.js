@@ -19,6 +19,7 @@ const initialTodoList = [
 function App() {
   const [todoList, setTodoList] = useState(initialTodoList);
   const [searchStatus, setSearchStatus] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const createTodo = title => {
     const newTodo = { title, completed: false, id: uuidv4() };
@@ -52,6 +53,10 @@ function App() {
     setSearchStatus(value);
   };
 
+  const changeSearchTerm = value => {
+    setSearchTerm(value);
+  };
+
   // let filteredTodoList = [];
   // switch (searchStatus) {
   //   case 'COMPLETED': {
@@ -67,8 +72,14 @@ function App() {
   // }
 
   const filteredTodoList = todoList.filter(
-    el => searchStatus === null || el.completed === searchStatus
+    el =>
+      (searchStatus === null || el.completed === searchStatus) &&
+      el.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // const filteredTodoList2 = filteredTodoList.filter(el =>
+  //   el.title.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
 
   return (
     <div className="container max-w-xs pt-5">
@@ -76,6 +87,8 @@ function App() {
       <Filter
         changeSearchStatus={changeSearchStatus}
         searchStatus={searchStatus}
+        changeSearchTerm={changeSearchTerm}
+        searchTerm={searchTerm}
       />
       <PageLimit />
       <TodoList
