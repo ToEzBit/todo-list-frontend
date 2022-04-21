@@ -66,11 +66,9 @@ function App() {
   //     filteredTodoList = [...todoList];
   // }
 
-  // const filteredTodoList = todoList.filter(
-  //   el => el.completed === null || el.completed === searchStatus
-  // );
-
-  const filteredTodoList = todoList.filter(el => el.title.includes('i'));
+  const filteredTodoList = todoList.filter(
+    el => searchStatus === null || el.completed === searchStatus
+  );
 
   return (
     <div className="container max-w-xs pt-5">
