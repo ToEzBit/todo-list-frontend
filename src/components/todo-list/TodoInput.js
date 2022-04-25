@@ -19,7 +19,10 @@ function TodoInput(props) {
     if (!todoInput) {
       setTodoError('Title is required.');
     } else {
-      props.updateTodo({ title: todoInput }, props.id);
+      props.updateTodo(
+        { title: todoInput, completed: props.completed },
+        props.id
+      );
       props.closeEditing();
     }
   };
