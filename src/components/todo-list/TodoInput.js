@@ -9,7 +9,7 @@ function TodoInput(props) {
     if (!todoInput) {
       setTodoError('Title is required.');
     } else {
-      props.createTodo(todoInput);
+      // props.createTodo(todoInput);
       setTodoError('');
       setTodoInput('');
     }
@@ -19,10 +19,10 @@ function TodoInput(props) {
     if (!todoInput) {
       setTodoError('Title is required.');
     } else {
-      props.updateTodo(
-        { title: todoInput, completed: props.completed },
-        props.id
-      );
+      // props.updateTodo(
+      //   { title: todoInput, completed: props.completed },
+      //   props.id
+      // );
       props.closeEditing();
     }
   };
