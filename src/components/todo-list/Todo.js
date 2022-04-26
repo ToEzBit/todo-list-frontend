@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Button from '../ui/Button';
 import TodoInput from './TodoInput';
+import { TodoContext } from '../../contexts/TodoContext';
 
 function Todo(props) {
   const { id, title, completed } = props;
   const [isEditing, setIsEditing] = useState(false);
+
+  const ctx = useContext(TodoContext);
 
   const closeEditing = () => {
     setIsEditing(false);
@@ -33,10 +36,15 @@ function Todo(props) {
             {title}
           </span>
           <div className="btn-group">
-            <Button color="outline-info">
+            <Button
+              color="outline-info"
+              onClick={() =>
+                ctx.updateTodo({ title, completed: !completed }, id)
+              }
+            >
               <i className={`fa-solid fa-toggle-${completed ? 'on' : 'off'}`} />
             </Button>
-            <Button color="danger">
+            <Button color="danger" onClick={() => ctx.removeTodo(id)}>
               <i className="fa-regular fa-trash-can" />
             </Button>
           </div>
