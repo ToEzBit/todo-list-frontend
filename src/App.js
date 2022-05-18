@@ -1,21 +1,18 @@
-import TodoInput from './components/todo-list/TodoInput';
-import Filter from './components/filter/Filter';
-import PageLimit from './components/page-limit/PageLimit';
-import TodoList from './components/todo-list/TodoList';
-import Pagination from './components/pagination/Pagination';
-import { TodoContextProvider } from './contexts/TodoContext';
+// import TodoInput from "./components/todo-list/TodoInput";
+// import TodoList from "./components/todo-list/TodoList";
+// import { TodoContextProvider } from "./contexts/TodoContext";
+import Header from "./components/layout/Header";
+import Router from "./route/Router";
+import { AuthContextProvider } from "./contexts/AuthContext";
 
 function App() {
   return (
-    <TodoContextProvider>
+    <AuthContextProvider>
+      <Header />
       <div className="container max-w-xs pt-5">
-        <TodoInput />
-        {/* <Filter /> */}
-        {/* <PageLimit /> */}
-        <TodoList />
-        {/* <Pagination /> */}
+        <Router />
       </div>
-    </TodoContextProvider>
+    </AuthContextProvider>
   );
 }
 
