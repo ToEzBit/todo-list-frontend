@@ -6,7 +6,7 @@ function AuthContextProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
+    if (localStorage.getItem(process.env.REACT_APP_ACCESS_TOKEN)) {
       setIsAuthenticated(true);
     }
   }, []);

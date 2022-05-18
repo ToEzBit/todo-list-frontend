@@ -1,8 +1,7 @@
 import axios from "axios";
-import { API_URL } from "../config/env";
-import { getAccessToken } from "../services/localStroage";
+import { getAccessToken } from "../services/localStorage";
 
-axios.defaults.baseURL = API_URL;
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.request.use(
   (config) => {

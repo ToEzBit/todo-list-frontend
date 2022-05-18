@@ -1,5 +1,10 @@
 import { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import {
+  getAllTodoAPI,
+  createTodoAPI,
+  removeTodoAPI,
+  updateTodoApi,
+} from "../api/todoApi";
 
 const TodoContext = createContext();
 
@@ -7,59 +12,63 @@ function TodoContextProvider(props) {
   const [todoList, setTodoList] = useState([]);
 
   const createTodo = (title) => {
-    axios
-      .post("/todos/create", { title, completed: false })
-      .then((res) => {
-        const newTodo = res.data.todo;
+    const fetch = async () => {
+      try {
+        const res = await createTodoAPI(title);
+        const newTodo = res.todo;
         const newTodoList = [newTodo, ...todoList];
         setTodoList(newTodoList);
-      })
-      .catch((err) => {
+      } catch (err) {
         console.log(err);
-      });
+      }
+    };
+    fetch();
   };
 
   const removeTodo = (id) => {
-    axios
-      .delete(`/todos/${id}`)
-      .then(() => {
+    const fetch = async () => {
+      try {
+        await removeTodoAPI(id);
         const idx = todoList.findIndex((el) => el.id === id);
         if (idx !== -1) {
           const clonedTodoList = [...todoList];
           clonedTodoList.splice(idx, 1);
           setTodoList(clonedTodoList);
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         console.log(err);
-      });
+      }
+    };
+    fetch();
   };
 
   const updateTodo = (newValue, id) => {
-    axios
-      .put("/todos/" + id, newValue)
-      .then(() => {
+    const fetch = async () => {
+      try {
+        await updateTodoApi(id, newValue);
         const idx = todoList.findIndex((el) => el.id === id);
         if (idx !== -1) {
           const clonedTodoList = [...todoList];
           clonedTodoList[idx] = { ...clonedTodoList[idx], ...newValue };
           setTodoList(clonedTodoList);
         }
-      })
-      .catch((err) => {
+      } catch (err) {
         console.log(err);
-      });
+      }
+    };
+    fetch();
   };
 
   useEffect(() => {
-    axios
-      .get("/todos")
-      .then((res) => {
-        setTodoList(res.data.result);
-      })
-      .catch((err) => {
+    const fetchData = async () => {
+      try {
+        const res = await getAllTodoAPI();
+        setTodoList(res.result);
+      } catch (err) {
         console.log(err);
-      });
+      }
+    };
+    fetchData();
   }, []);
 
   return (

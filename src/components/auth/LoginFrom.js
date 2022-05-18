@@ -19,7 +19,10 @@ function LoginFrom() {
     if (Object.keys(errResult).length === 0) {
       try {
         const res = await axios.post("/users/login", { username, password });
-        localStorage.setItem("accessToken", res.data.token);
+        localStorage.setItem(
+          process.env.REACT_APP_ACCESS_TOKEN,
+          res.data.token
+        );
         login();
       } catch (err) {
         if (err.response) {

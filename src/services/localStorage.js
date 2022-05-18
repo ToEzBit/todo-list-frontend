@@ -1,4 +1,4 @@
-const ACCESS_TOKEN = "accessToken";
+const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
 export function getAccessToken() {
   return localStorage.getItem(ACCESS_TOKEN);
 }

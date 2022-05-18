@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
+import { removeAccessToken } from "../../services/localStorage";
 function Header() {
   const { isAuthenticated, logout } = useContext(AuthContext);
 
@@ -26,7 +27,7 @@ function Header() {
                     role="button"
                     onClick={() => {
                       logout();
-                      localStorage.removeItem("accessToken");
+                      removeAccessToken();
                     }}
                   >
                     Logout
